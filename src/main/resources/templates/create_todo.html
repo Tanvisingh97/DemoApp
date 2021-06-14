@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Todo</title>
+    <link rel="stylesheet" href="src/main/resources/static/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <style>
+        .btn{
+    background-color:chocolate;
+    color:red;
+    border: 1px solid;
+    border-radius:2px;
+}
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+    </style>
+</head>
+<body>
+      <form method="post">
+        <label>Title</label>
+        <input id="title" name="title" type="text"/>
+        <label >Description</label>
+        <input id="desc" name="desc" type="text"/>
+        <label >Deadline</label>
+        <input id="deadline" name="date" type="date"/>
+        <input type="submit" id="form-submit">
+      </form>
+<script type="text/javascript">
+    $("#form-submit").on('click',function(e){
+    e.preventDefault();
+    let title = $("#title").val();
+    let desc = $("#desc").val();
+    let deadline = $("#deadline").val();
+    let formData = {title,desc,deadline}
+    sendAjax("/todo/new","POST",JSON.stringify(formData));
+    console.table(formData);
+});
+function sendAjax(_url,_method,_data){
+    $.ajax(
+            {
+            async:false,
+            dataType : "json",
+            contentType: 'application/json',
+            url:_url,
+            method:_method,
+            data:_data,
+            success:function(res){
+                // redirect and toast
+
+        }
+        }
+        )
+}
+</script>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+</html>
