@@ -27,10 +27,25 @@ input[type=button], input[type=submit], input[type=reset] {
   margin: 4px 2px;
   cursor: pointer;
 }
+#test {
+  width: 100px;
+  height: 100px;
+  background: #bf0000;
+  transition: width 2s, height 2s, transform 2s;
+}
+
+#test:hover {
+  width: 200px;
+  height: 200px;
+  transform: rotate(180deg);
+}
     </style>
 </head>
 <body>
-      <form method="post">
+<p>This is a toggleable paragraph</p>
+<button id="toggle">toggle paragraph</button> <br/>
+<button id="hide">toggle form</button>
+      <form id="hide_div" method="post">
         <label>Title</label>
         <input id="title" name="title" type="text"/>
         <label >Description</label>
@@ -39,7 +54,11 @@ input[type=button], input[type=submit], input[type=reset] {
         <input id="deadline" name="date" type="date"/>
         <input type="submit" id="form-submit">
       </form>
+<br/>
+<br/>
+<div id="test"></div>
 <script type="text/javascript">
+    // jcm2-3 [KO2]
     $("#form-submit").on('click',function(e){
     e.preventDefault();
     let title = $("#title").val();
@@ -60,11 +79,23 @@ function sendAjax(_url,_method,_data){
             data:_data,
             success:function(res){
                 // redirect and toast
-
-        }
+                console.log(res);
+            }
         }
         )
 }
+$(document).ready(function(){
+ 	 $("#toggle").click(function(){
+     $("p").toggle();
+  });
+});
+$(document).ready(function(){
+  $("#hide").click(function(){
+    $("#hide_div").animate({
+      height: 'toggle'
+    });
+  });
+});
 </script>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>

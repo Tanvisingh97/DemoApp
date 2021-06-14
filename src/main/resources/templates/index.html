@@ -5,7 +5,9 @@
 
 	<title>index</title>
 	<link rel="stylesheet" href="src/main/resources/static/css/style.css">
-<!--	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" integrity="undefined" crossorigin="anonymous">-->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+	<!--	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" integrity="undefined" crossorigin="anonymous">-->
 </head>
 <body div="container">
 	<h1>
@@ -16,10 +18,36 @@
 	<a href="todo/new"><button id="btn-todo" class="btn">+ todo</button></a>
 <h3>Todo List</h3>
 <hr/>
+	<button id="hide">hide list</button>
 <ol th:each="todo:${todos}">
-	<li th:text="${todo.title}"><button >-</button></li>
+	<li th:text="${todo.title}"></li><button th:value="${todo.id}" id="delete">delete</button>
 </ol>
+	<script type="text/javascript">
+	$(document).ready(function(){
+ 	 $("#toggle").click(function(){
+     $("p").toggle();
+  });
+});
+$(document).ready(function(){
+  $("#hide").click(function(){
+    $("#hide_div").animate({
+      height: 'toggle'
+    });
+  });
+});
+	$("#delete").click(function(){
+	id=$(this).value;
+    $.ajax({
+        async:false,
+        url:"/todo/"+id,
+        method:'POST',
+        success:function(res){
+            // redirect and toast
+        }
+    })
+});
+</script>
 </body>
+
 <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="undefined" crossorigin="anonymous"></script>-->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </html>

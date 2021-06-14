@@ -24,7 +24,7 @@ class WebController {
         return modelAndView;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/todo/{id}")
     public ModelAndView getTodo(Model model,@PathVariable("id") Integer id){
         List<Todo> todos = todoService.getTodos();
         model.addAttribute(todos);
@@ -39,10 +39,9 @@ class WebController {
     }
 
     @PostMapping("/todo/new")
-    public ModelAndView newTodo(@RequestBody Todo todo){
+    public void newTodo(@RequestBody Todo todo){
         System.out.println(todo);
         todoService.createTodo(todo);
-        return new ModelAndView("redirect:/todo");
     }
 
     @DeleteMapping("/todo/{id}")
