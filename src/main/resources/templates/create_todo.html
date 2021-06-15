@@ -47,9 +47,9 @@ input[type=button], input[type=submit], input[type=reset] {
 <button id="hide">toggle form</button>
       <form id="hide_div" method="post">
         <label>Title</label>
-        <input id="title" name="title" type="text"/>
+        <input id="title" name="title" type="text" required/>
         <label >Description</label>
-        <input id="desc" name="desc" type="text"/>
+        <input id="desc" name="desc" type="text" required/>
         <label >Deadline</label>
         <input id="deadline" name="date" type="date"/>
         <input type="submit" id="form-submit">
@@ -60,6 +60,8 @@ input[type=button], input[type=submit], input[type=reset] {
 <script type="text/javascript">
     // jcm2-3 [KO2]
     $("#form-submit").on('click',function(e){
+    if($('form')[0].checkValidity())
+    {
     e.preventDefault();
     let title = $("#title").val();
     let desc = $("#desc").val();
@@ -67,6 +69,9 @@ input[type=button], input[type=submit], input[type=reset] {
     let formData = {title,desc,deadline}
     sendAjax("/todo/new","POST",JSON.stringify(formData));
     console.table(formData);
+    alert("form data saved");
+    setTimeout(function(){ location.reload();},2000);
+    }
 });
 function sendAjax(_url,_method,_data){
     $.ajax(
